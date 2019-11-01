@@ -1,0 +1,9 @@
+<h1>Users#index</h1>
+<h1>User一覧</h1>
+
+<ul>
+  <% @users.each do |user| %>
+    <li><%= link_to user.id,user%>:<%= user.name %></li>
+    <li><%= user.email %></li>
+  <% end %>
+</ul>
