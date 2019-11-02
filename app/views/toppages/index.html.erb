@@ -1,6 +1,9 @@
-<div class="center jumbotron">
-  <div class="text-center">
-    <h1>資産運用</h1>
-      <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
+<% if logged_in? %>
+<% else %>
+  <div class="center jumbotron">
+    <div class="text-center">
+      <h1>資産運用</h1>
+        <%= link_to '今すぐサインアップ!', signup_path, class: 'btn btn-lg btn-primary' %>
+    </div>
   </div>
-</div>
+<% end %>

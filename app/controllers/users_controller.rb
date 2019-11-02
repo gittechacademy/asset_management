@@ -1,10 +1,8 @@
 class UsersController < ApplicationController
-  def index
-    @users=User.all
-  end
-
+  before_action :require_user_logged_in, only: [:show, :edit ,:update]
+  before_action :correct_user, only: [:edit,:update]
   def show
-    @user=User.find(params[:id])
+    @user=User.find_by(params[:id])
   end
 
   def new
@@ -24,17 +22,28 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user=User.find_by(params[:id])
   end
 
   def update
-  end
+    @user = User.find(params[:id])
 
-  def destroy
+    if @user.update(user_params)
+      flash[:success] = '名前 は正常に更新されました'
+      redirect_to @user
+    else
+      flash.now[:danger] = '名前 は更新されませんでした'
+      render :edit
+    end
   end
   
   private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+  def correct_user
+    @user = User.find_by(params[:id])
+    redirect_to(root_path) unless current_user?(@user)
   end
 end
