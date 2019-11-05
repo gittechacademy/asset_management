@@ -1,7 +1,7 @@
 <header class="mb-4">
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <% if logged_in? %>
-      <%= link_to '資産運用', user_path(current_user), class:'navbar-brand'%>
+      <%= link_to '資産運用', root_path, class:'navbar-brand'%>
     <% else %>
       <a class="navbar-brand" href="/">資産運用</a>    
     <% end %>
@@ -15,11 +15,11 @@
           <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%= current_user.name %></a>
             <ul class="dropdown-menu dropdown-menu-right">
-              <li class="dropdown-item"><%= link_to 'ユーザ情報', user_path(current_user) %></li>
+              <li class="dropdown-item"><%= link_to '銘柄登録', new_bland_path(@bland) %></li>
               <li class="dropdown-divider"></li>              
-              <li class="dropdown-item"><%= link_to 'ユーザ情報', user_path(current_user) %></li>
-              <li class="dropdown-item"><%= link_to 'ユーザ情報', user_path(current_user) %></li>
-              <li class="dropdown-item"><%= link_to 'ユーザ情報', user_path(current_user) %></li>
+              <li class="dropdown-item"><%= link_to 'ポートフォリオ', blands_user_path(current_user) %></li>
+              <li class="dropdown-item"><%= link_to '配当金カレンダー・グラフ', user_path(current_user) %></li>
+              <li class="dropdown-item"><%= link_to 'ユーザ情報', root_path %></li>
               <li class="dropdown-divider"></li>
               <li class="dropdown-item"><%= link_to 'ログアウト', logout_path, method: :delete %></li>
             </ul>

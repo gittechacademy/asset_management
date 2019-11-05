@@ -1,0 +1,71 @@
+<% if @bland==='blands' %>
+      <%= link_to new_bland_path(blands), class: 'btn btn-primary' do %>
+        <span>銘柄登録</span>
+      <% end %>    
+
+      <%= link_to blandedits_user_path(current_user), class: 'btn btn-primary' do %>
+        <span>編集</span>
+      <% end %> 
+
+
+<% else %>
+  <%= link_to blands_user_path(current_user), class: 'btn btn-primary' do %>
+    <span>戻る</span>
+  <% end %>
+<% end %>
+
+<ul class="list-unstyled">
+  <% blands.each do |bland| %>
+  
+  
+  
+  <li class="media mb-3">
+    <div class="media-body">
+        <div>
+          <%= bland.user_id %>
+          <%= bland.name %>
+          <%= bland.id %>
+          <%= bland.code %>
+          <% bland.stocks.each do |stock| %>
+            <p>株数・口:<%= stock.number %>　金額:<%= stock.money %></p>
+          <% end %>
+        </div>          
+          <% if @bland==='blands' %>
+        <div class="text-right">
+            <%= link_to "#", class: 'btn btn-success' do %>
+              <i class="far fa-edit"></i>
+              <span>配当金記録</span>
+            <% end %>
+            
+             <%= link_to "#", class: 'btn btn-success' do %>
+              <i class="far fa-edit"></i>
+              <span>銘柄売記録</span>
+            <% end %>          
+            
+             <%= link_to "#", class: 'btn btn-success' do %>
+              <i class="far fa-edit"></i>
+              <span>銘柄売記録</span>
+            <% end %>           
+        </div>
+         
+
+          <% else %>
+        <div class="text-right">
+          <%= link_to edit_bland_path(bland), class: 'btn btn-success' do %>
+            <i class="far fa-edit"></i>
+            <span>編集</span>
+          <% end %>
+          
+          <%= link_to bland, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger' do %>
+            <i class="far fa-trash-alt"></i>
+            <span>削除</span>
+          <% end %>
+        </div>          
+          <% end %>
+
+
+      </div>
+  </li>
+  <% end %>
+  <%=paginate blands %>
+</ul>
