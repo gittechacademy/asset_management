@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def show
     @user=User.find(params[:id])
     @blands=@user.blands.order(id: :desc).page(params[:page])
+
   end
 
   def new
@@ -23,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user=User.find_by(params[:id])
+    @user=User.find(params[:id])
   end
 
   def update
@@ -39,13 +40,13 @@ class UsersController < ApplicationController
   end
   
   def blands
-    @bland='blands'
+    @mybland='blands'
     @user=User.find(params[:id])
     @blands=@user.blands.order(id: :desc).page(params[:page])
   end
   
   def blandedits
-    @bland='blandedits'
+    @mybland='blandedits'
     @user=User.find(params[:id])
     @blands=@user.blands.order(id: :desc).page(params[:page])
   end

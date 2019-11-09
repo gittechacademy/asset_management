@@ -1,21 +1,20 @@
 <div class="row">
-  <aside class="col-sm-4">
+  <aside class="col-sm-2">
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">
           <%= current_user.name %>
         </h3>
-        <p><%=link_to '編集',edit_user_path %></p>
       </div>
       <div class="card-body">
         <img class="rounded img-fluid" src="<%= gravatar_url(current_user, { size: 300 }) %>" alt="">
       </div>
     </div>
   </aside>
-  <div class="col-sm-8">
+  <div class="col-sm-10">
     <ul class="nav nav-tabs nav-fill">
       <li class="nav-item">
-        <a href="<%= user_path(current_user) %>" class="nav-link <%= 'active' if current_page?(user_path(@user)) %>">ポートフォリオ</a>
+        <a href="<%= blands_user_path(current_user) %>" class="nav-link <%= 'active' if current_page?(blands_user_path(current_user)) %>">ポートフォリオ</a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link">配当金カレンダー・グラフ</a>

@@ -1,0 +1,2 @@
+class Buysell < ApplicationRecord
+end

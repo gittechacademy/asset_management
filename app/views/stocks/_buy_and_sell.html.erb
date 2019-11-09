@@ -1,0 +1,43 @@
+
+(params[:id] : <%= params[:id] %>)
+(current_user.name : <%= current_user.name %>)
+(current_user.id : <%= current_user.id %>)
+<div class="row">
+  <div class="col-6">
+   <%= form_with(model: stock, local: true) do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+      <div class="form-group">
+          <%= f.label :number, '株数' %>
+          <%= f.text_field :number, class: 'form-control' %>
+      </div>
+  
+      <div class="form-group">
+          <%= f.label :money, '金額' %>
+          <%= f.text_field :money, class: 'form-control' %>
+      </div>
+      <% if params[:action]==="edit" %>
+        <div class="form-group">
+      <% else %>
+        <div class="form-group d-none">      
+      <% end %>
+          <%= f.label :buying_and_selling, '売買記録' %>
+          <!--f.collection_select(:blandのカラム名, 選択肢の配列, :選択肢のid, :選択肢に表示したいカラム名)-->
+          <%= f.collection_select(:buying_and_selling, @buysell, :buysell_id, :name, {}, class: "form-control") %>
+        </div>
+      
+        <div class="form-group d-none">
+          <%= f.label :bland_id %>
+          <%= f.text_field :bland_id, class: 'form-control',hide_label: true %>
+      </div>
+      <%= f.submit '作成', class: 'btn btn-primary' %>
+      
+      <!--edit時に削除ボタン表示させる-->
+      <% if params[:action]==="edit" %>
+        <%= link_to stock, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger' do %>
+          <i class="far fa-trash-alt"></i>
+          <span>削除</span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

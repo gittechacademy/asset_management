@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-6">
+   <%= form_with(model: dividend, local: true) do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+      <div class="form-group">
+          <%= f.label :money, '配当金' %>
+          <%= f.text_field :money, class: 'form-control' %>
+      </div>
+  
+      <div class="form-group">
+          <%= f.label :month, '配当月' %>   
+          <%= f.collection_select(:month, @months, :name, :name, {}, class: "form-control") %>
+      </div>
+      
+      <div class="form-group d-none">
+          <%= f.label :bland_id %>
+          <%= f.text_field :bland_id, class: 'form-control',hide_label: true %>
+      </div>
+  
+      
+      <%= f.submit '作成', class: 'btn btn-primary' %>
+      <!--edit時に削除ボタン表示させる-->
+      <% if params[:action]==="edit" %>
+        <%= link_to dividend, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger' do %>
+          <i class="far fa-trash-alt"></i>
+          <span>削除</span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,30 +1,28 @@
 class BlandsController < ApplicationController
-  before_action :correct_user, only: [:new,:edit,:create,:update,:destroy]
+  before_action :correct_user, only: [:edit,:update,:destroy]
   def create
     @type_names = TypeName.all
     @bland=current_user.blands.build(bland_params)
     if @bland.save
       flash[:success] = '銘柄を登録しました。'
-      redirect_to user_path(current_user)
+      redirect_to blands_user_path(current_user)
     else
-     @blands=current_user.blands.order(id: :desc).page(params[:page])
+      @blands=current_user.blands.order(id: :desc).page(params[:page])
       flash.now[:danger] = '銘柄の登録に失敗しました。'
       render :new
     end
   end
 
   def new
-    @type_names = TypeName.all
+    @type_names = TypeName.all    
+    @user=User.find_by(params[:id])
     @bland = current_user.blands.build
   end
 
   def edit
-    @type_names = TypeName.all
+    @type_names = TypeName.all    
+    @user=User.find_by(params[:id])
     @bland=Bland.find(params[:id])
-  end
-
-  def show
-    #@stocks=@blands.stocks.order(id: :desc).page(params[:page])
   end
 
   def update
@@ -50,8 +48,10 @@ class BlandsController < ApplicationController
   def bland_params
     params.require(:bland).permit(:name,:code,:type_name_id)
   end
+  
   def correct_user
-    @bland = current_user.blands.find_by(params[:id])
+
+    @bland = current_user.blands.find_by(id: params[:id])
     unless @bland
       redirect_to root_url
     end

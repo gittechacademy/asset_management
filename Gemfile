@@ -55,3 +55,10 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'kaminari'
+group :development, :test do
+  gem 'hirb'
+  gem 'hirb-unicode'
+end
+group :development, :test do
+  gem 'pry-rails'  # irbの代わりにpryにする
+end

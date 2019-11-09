@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+# coding: utf-8
+12.times do |no|
+  Month.create(:name => "#{no + 1}月")
+end
+
+TypeName.create(name:"国内株式")
+TypeName.create(name:"海外株式")
+
+Buysell.create(name:"買",buysell_id:0)
+Buysell.create(name:"売",buysell_id:1)
