@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:show, :edit ,:update]
-  before_action :correct_user, only: [:show,:edit,:update]
+  before_action :correct_user, only: [:show,:edit,:update,:blands,:blandedits]
   def show
     @user=User.find(params[:id])
-    @blands=@user.blands.order(id: :desc).page(params[:page])
+    @blands=@user.blands.page(params[:page]).per(2)
 
   end
 
@@ -42,13 +42,13 @@ class UsersController < ApplicationController
   def blands
     @mybland='blands'
     @user=User.find(params[:id])
-    @blands=@user.blands.order(id: :desc).page(params[:page])
+    @blands=@user.blands.order(id: :desc).page(params[:page]).per(10)
   end
   
   def blandedits
     @mybland='blandedits'
     @user=User.find(params[:id])
-    @blands=@user.blands.order(id: :desc).page(params[:page])
+    @blands=@user.blands.order(id: :desc).page(params[:page]).per(10)
   end
   
   private

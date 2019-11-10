@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       get :sell
     end
   end
-  resources :dividends,only: [ :show , :new, :create ,:edit,:update ,:destroy] 
+  resources :dividends,only: [ :show , :new, :create ,:edit,:update ,:destroy]
   resources :blands, only: [ :show , :new, :create ,:edit,:update ,:destroy] 
   resources :users, only: [:show, :new, :create ,:edit ,:update] do
     member do

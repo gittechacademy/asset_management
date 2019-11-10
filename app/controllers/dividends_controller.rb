@@ -1,4 +1,6 @@
 class DividendsController < ApplicationController
+  before_action :correct_user, only: [:edit,:update,:destroy]
+  before_action :bland_correct_user,only:[:new]
   def show
   end
 
@@ -25,14 +27,15 @@ class DividendsController < ApplicationController
 
   def edit
     @months = Month.all
-    
     @dividend=Dividend.find(params[:id])
+    
+    @bland=Bland.find(@dividend.bland_id)
   end
 
   def update
     @dividend=Dividend.find(params[:id])
     if @dividend.update(dividend_params)
-      flash[:success] = '正常に更新されました'
+      flash[:success] = '更新されました'
       redirect_to blands_user_path(current_user)
     else
       flash.now[:danger] = '更新されませんでした'
@@ -51,5 +54,19 @@ class DividendsController < ApplicationController
 
   def dividend_params
     params.require(:dividend).permit(:money,:month)
+  end
+
+  def bland_correct_user
+    @bland=Bland.find(params[:format])
+    unless @bland.user_id===current_user.id
+      redirect_to root_url
+    end
+  end
+  
+  def correct_user
+    @user=Bland.find(Dividend.find(params[:id]).bland_id)
+    unless @user.user_id===current_user.id
+      redirect_to root_url
+    end
   end
 end

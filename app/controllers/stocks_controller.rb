@@ -1,10 +1,13 @@
 class StocksController < ApplicationController
+  before_action :correct_user, only: [:edit,:update,:destroy]
+  before_action :bland_correct_user,only:[:buy,:sell]
   def new
   end
 
   def edit
     @buysell=Buysell.all
     @stock=Stock.find(params[:id])
+    @bland=Bland.find(@stock.bland_id)
   end
 
   def update
@@ -57,5 +60,18 @@ class StocksController < ApplicationController
   
   def stock_params
     params.require(:stock).permit(:number,:money,:buying_and_selling)
+  end
+  def bland_correct_user
+    @bland=Bland.find(params[:id])
+    unless @bland.user_id===current_user.id
+      redirect_to root_url
+    end
+  end
+  
+  def correct_user
+    @user=Bland.find(Stock.find(params[:id]).bland_id)
+    unless @user.user_id===current_user.id
+      redirect_to root_url
+    end
   end
 end
